@@ -1,0 +1,293 @@
+Host *
+  ServerAliveInterval 240
+Host slvpn
+    HostName 148.181.23.23
+    User guest
+    DynamicForward 38888
+Host slems
+  ProxyCommand ssh slvpn nc 10.10.244.47 22
+  User ivbbuild
+  DynamicForward 38880
+Host slcdn
+  ProxyCommand ssh slems nc 192.168.51.101 22
+  User ivbbuild
+Host slcsi
+  ProxyCommand ssh slems nc 192.168.51.102 22
+  User ivbbuild
+Host stcveep
+  Hostname 148.181.23.22
+  User guest
+Host stccc
+  ProxyCommand ssh stcveep nc cc 22
+  User ivbbuild
+Host stctbcc
+  Proxycommand ssh stccc nc 172.25.25.75 22
+  User ivbbuild
+Host stctbbilo
+  Proxycommand ssh stctbcc nc 172.25.25.79 22
+  User administrator
+Host stcBackend1
+  Proxycommand ssh stccc nc backend1 22
+  User ivbbuild
+Host stcBackend2
+  Proxycommand ssh stccc nc backend2 22
+  User ivbbuild
+Host stcProvision
+  Proxycommand ssh stccc nc provisioning 22
+  User ivbbuild
+Host stcMS1
+  Proxycommand ssh stccc nc ms1 22
+  User ivbbuild
+Host stcMS2
+  Proxycommand ssh stccc nc ms2 22
+  User ivbbuild
+Host stcMS3
+  Proxycommand ssh stccc nc ms3 22
+  User ivbbuild
+Host stcMS4
+  Proxycommand ssh stccc nc ms4 22
+  User ivbbuild
+Host stcMS5
+  Proxycommand ssh stccc nc ms5 22
+  User ivbbuild
+Host majanvpn
+  HostName 148.181.23.17
+  User guest
+Host rcdn
+  ProxyCommand ssh majanvpn nc 10.10.40.38 22
+  User ivbbuild
+Host rems
+  ProxyCommand ssh majanvpn nc 10.10.40.35 22
+  User ivbbuild
+  DynamicForward 38888
+Host rsdp1
+  ProxyCommand ssh majancdn /usr/local/bin/nc 10.10.40.45 22
+  User ivbbuild
+Host rsdp2
+  ProxyCommand ssh majancdn /usr/local/bin/nc 10.10.40.46 22
+  User ivbbuild
+Host majancdn
+  user ivbbuild
+  ProxyCommand ssh rcdn nc R7CDN-CUST 22
+Host tester1
+  Hostname 148.181.8.89
+  User ivbbuild
+Host tester2
+  Hostname 148.181.19.116
+  User ivbbuild
+Host stcrefbe1
+  Hostname 148.181.8.96
+  User ivbbuild
+Host stcrefsip
+  ProxyCommand ssh stcrefbe1 nc 10.78.67.84
+  user ivbbuild
+Host stctbprov
+  ProxyCommand ssh stccc nc 172.25.25.77 22
+  User ivbbuild
+Host ec2Experiment
+  Hostname  ec2-18-130-251-30.eu-west-2.compute.amazonaws.com
+  Port 22
+  User ec2-user
+  IdentityFile ~/.ssh/JasonAWS1.pem
+Host stcprodtest1 
+  Hostname 148.181.8.82
+  User ivbbuild
+Host stcprodbe1
+  Proxycommand ssh stcprodtest1 nc 192.168.2.101 22
+  User ivbbuild
+Host stcprodbe2
+  Proxycommand ssh stcprodtest1 nc 192.168.2.102 22
+  User ivbbuild
+Host stcprodems
+  Proxycommand ssh stcprodtest1 nc 192.168.2.30 22
+  User ivbbuild
+Host stcprodprov
+  Proxycommand ssh stcprodtest1 nc 192.168.2.40 22
+  User ivbbuild 
+Host CharlieFloater
+  Hostname 148.181.19.34
+  User ivbbuild
+Host MTCSMSC3
+  Proxycommand ssh CharlieFloater nc SMSSC3 22
+  User ivbbuild
+Host MTCSMSC4
+  Proxycommand ssh CharlieFloater nc SMSSC4 22
+  User ivbbuild
+Host MTCRS1
+  Proxycommand ssh CharlieFloater nc RS1-CUST 22
+  User ivbbuild
+Host PostgresCDN
+  Hostname 148.181.15.102
+  User ivbbuild
+Host GarryCDN
+  Hostname 148.181.19.153
+  User ivbbuild
+Host GarrySDP
+  Hostname 148.181.15.104
+  User ivbbuild
+Host GarryDRA50
+  Hostname 148.181.15.35
+  User ivbbuild
+Host GarryDRA51
+  Hostname 148.181.15.36
+  User ivbbuild
+Host GoogleAccess
+  Hostname 34.125.73.43  
+  User ivbbuild
+Host GoogleBack
+  Proxycommand ssh GoogleAccess nc 10.128.0.3 22
+  User ivbbuild
+Host OpenEMS
+  Hostname 148.181.8.229 
+  User ivbbuild
+Host OpenCDN
+  Proxycommand ssh OpenEMS nc 192.168.100.230 22
+  User ivbbuild
+Host OpenEMS2Ports
+  Hostname 148.181.8.229 
+  LocalForward 20001 CSI:5432
+  LocalForward 20002 CDN:22
+  LocalForward 20003 CDN:5432
+  LocalForward 20004 SDP1:8080
+  LocalForward 20005 SDP1:9344
+  User ivbbuild
+Host EMSOvernight
+  Hostname 148.181.8.247
+  User ivbbuild
+Host CDNOvernight
+    Proxycommand ssh EMSOvernight nc ocsprimary 22
+    User ivbbuild
+Host DACDNS1Overnight
+    Proxycommand ssh EMSOvernight nc ONi-DA-S1-CDN 22
+    User ivbbuild
+Host DACDNS2Overnight
+    Proxycommand ssh EMSOvernight nc ONi-DA-S2-CDN 22
+    User ivbbuild
+Host DBCDNS1Overnight
+    Proxycommand ssh EMSOvernight nc ONi-DB-S1-CDN 22
+    User ivbbuild
+Host DBCDNS2Overnight
+    Proxycommand ssh EMSOvernight nc ONi-DB-S2-CDN 22
+    User ivbbuild
+Host DADRAOvernight
+    Proxycommand ssh EMSOvernight nc ONi-DA-DRA-CUST 22
+    User ivbbuild
+Host DBDRAOvernight
+    Proxycommand ssh EMSOvernight nc ONi-DB-DRA 22
+    User ivbbuild
+Host EMS2PortsOvernight
+  Hostname 148.181.8.247
+  LocalForward 20001 CSI:5432
+  LocalForward 20002 ocsprimary:22
+  LocalForward 20003 ocsprimary:5432
+  LocalForward 20004 ONi-DA-S1-SDP1-CUST:8444
+  LocalForward 20005 ONi-DA-S1-SDP1-CUST:9344
+  
+  User ivbbuild
+Host Test1
+  ProxyCommand ssh EMSOvernight nc 192.168.100.113 22
+  User root
+Host SDP1Overnight
+    Proxycommand ssh EMSOvernight nc ONi-DA-S1-SDP1-CUST 22
+    User ivbbuild
+Host CSIOvernight
+    Proxycommand ssh EMSOvernight nc CSI 22
+    User ivbbuild
+Host DRAOvernight
+    Proxycommand ssh EMSOvernight nc ONi-DA-DRA 22
+    User ivbbuild
+Host R11SDP
+    Proxycommand ssh OpenEMS nc 192.168.100.238 22
+Host DS1
+  Hostname 148.181.15.37
+  User ivbbuild
+Host TEMPEMSCSI
+  Hostname 148.181.8.231
+  User ivbbuild
+Host TEMPCDNSDP
+  Proxycommand ssh TEMPEMSCSI nc 192.168.101.22 22
+  User ivbbuild
+Host mvne_emscsi
+  HostName 148.181.8.231
+  LocalForward 20003 192.168.101.22:22
+  LocalForward 20004 192.168.101.22:8080
+  LocalForward 20005 127.0.0.1:5432
+  User ivbbuild
+Host camvne_csi
+    Proxycommand ssh GarrySDP nc 102.220.84.68 22
+    User ivbbuild
+    LocalForward 20004 10.0.82.126:443
+Host camvne_cdn
+    ProxyCommand ssh GarrySDP nc 102.220.86.34 22
+    User ivbbuild
+    LocalForward 20008 10.0.82.44:8080
+Host 1cdnsdp
+    Hostname 148.181.19.42
+    User ivbbuild
+Host 1csiems
+    Hostname 148.181.19.43
+    User ivbbuild
+Host 1dra
+    Hostname 148.181.19.44
+    User ivbbuild
+Host 1cadm_cdn
+    ProxyCommand ssh GarrySDP nc 41.79.76.138 22
+    User ivbbuild
+    LocalForward 20007 10.0.82.101:8080
+Host 2cadm-csi
+    ProxyCommand ssh GarrySDP nc 102.220.87.32 22
+    User ivbbuild
+    LocalForward 20005 10.0.82.37:443
+Host MTCVPN
+    Hostname 148.181.23.30
+    User guest
+Host MTCEMS2
+    ProxyCommand ssh MTCVPN nc ems2 22
+    LocalForward 20020 localhost:443
+    User ivbbuild
+Host MTCEMS1
+    ProxyCommand ssh MTCVPN nc ems1 22
+    LocalForward 20022 localhost:443
+    User ivbbuild
+Host siteMTCRS1
+    ProxyCommand ssh MTCVPN nc rs1 22
+    LocalForward 20021 localhost:443
+    User ivbbuild
+Host MultiEMS
+    ProxyCommand ssh GarrySDP nc 41.79.78.184 22
+    LocalForward 20004 localhost:443
+    User ivbbuild
+Host EzagaEMS
+	ProxyCommand ssh GarrySDP nc 102.220.85.102 22
+	User ivbbuild
+	LocalForward 20022 localhost:443
+Host AfgriEMS
+	ProxyCommand ssh GarrySDP nc 102.220.87.102 22
+	User ivbbuild
+	LocalForward 20023 localhost:443
+Host dvpn
+  hostname 148.181.15.112
+  user guest
+
+
+Host dsdp1
+  user ivbbuild
+  ProxyCommand ssh dvpn nc 10.70.1.59 22
+  GSSAPIAuthentication no
+ 
+Host d12ems
+  ProxyCommand ssh dsdp1 -W 10.95.65.5:22
+        user ivbbuild
+        LocalForward 20004 localhost:443
+Host d12cdn
+  ProxyCommand ssh d12ems -W cdn:22
+  user ivbbuild
+Host d12csi
+  ProxyCommand ssh d12ems -W csi:22
+  user ivbbuild
+Host d12emsroot
+  ProxyCommand ssh dsdp1 -W 10.95.65.5:22
+  user root
+Host ld12ems
+    HostName 148.181.104.199
+    User root

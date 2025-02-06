@@ -57,8 +57,8 @@ WORKDIR /test
 # Neither file should be version controlled in a public repo.
 
 COPY ./config /root/.ssh
-COPY ./checkout.sh /checkout.sh
-RUN cd / && chmod u+x checkout.sh && ./checkout.sh  && cd $CONFIG/Systems/$SYSTEM && cp ocssystemV2.cfg ../..
+# COPY ./checkout.sh /checkout.sh
+# RUN cd / && chmod u+x checkout.sh && ./checkout.sh  && cd $CONFIG/Systems/$SYSTEM && cp ocssystemV2.cfg ../..
 
 # From here, get (or copy in at build time, via the COPY command) the script to
 # check out the code.
