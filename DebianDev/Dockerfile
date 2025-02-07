@@ -13,7 +13,7 @@
 # get it to work with 17.
 #
 # To run in Docker on MX (Arm) based mac, swap out linux64.tar.gz for
-# aarch64.tar.gz.
+# linux-aarch64.tar.gz
 #
 # Note: I use svn at work. You can replace that with git easily enough.
 #
