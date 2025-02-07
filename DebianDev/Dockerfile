@@ -39,6 +39,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends wget && \
     tar -xzf "geckodriver-v${GECKODRIVER_VERSION}-linux64.tar.gz" -C /usr/local/bin/ && \
     rm "geckodriver-v${GECKODRIVER_VERSION}-linux64.tar.gz" && \
     chmod +x /usr/local/bin/geckodriver && \
+    apt install -y python3-venv && \
     apt-get purge -y wget && apt-get autoremove -y &&  rm -rf /var/lib/apt/lists/* && \
     python3 -m venv $VIRTUAL_ENV && \
     . /pvenv/bin/activate && pip3 install behave && pip3 install requests && pip3 install psycopg2-binary && pip3 install flask && deactivate
